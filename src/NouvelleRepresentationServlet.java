@@ -3,9 +3,16 @@
  * 
  * Copyright (c) 2007 Sara Bouchenak.
  */
-import javax.servlet.*;
-import javax.servlet.http.*;
 import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import database.RepresentationDb;
+import exceptions.RepresentationException;
 
 /**
  * NouvelleRepresentation Servlet.
@@ -51,29 +58,18 @@ public class NouvelleRepresentationServlet extends HttpServlet {
 		dateS = req.getParameter("date");
 		heureS = req.getParameter("heure");
 		if (numS == null || dateS == null || heureS == null) {
-			out.println("<font color=\"#FFFFFF\">Veuillez saisir les informations relatives &agrave; la nouvelle repr&eacute;sentation :");
-			out.println("<P>");
-			out.print("<form action=\"");
-			out.print("NouvelleRepresentationServlet\" ");
-			out.println("method=POST>");
-			out.println("Num&eacute;ro de spectacle :");
-			out.println("<input type=text size=20 name=numS>");
-			out.println("<br>");
-			out.println("Date de la repr&eacute;sentation :");
-			out.println("<input type=text size=20 name=date>");
-			out.println("<br>");
-			out.println("Heure de d&eacute;but de la repr&eacute;sentation :");
-			out.println("<input type=text size=20 name=heure>");
-			out.println("<br>");
-			out.println("<input type=submit>");
-			out.println("</form>");
+			printForm(out);
 		} else {
-			// TO DO
-			// Transformation des param�tres vers les types ad�quats.
-			// Ajout de la nouvelle repr�sentation.
-			// Puis construction dynamique d'une page web de r�ponse.
-			out.println("<p><i><font color=\"#FFFFFF\">A compl&eacute;ter</i></p>");
-			out.println("<p><i><font color=\"#FFFFFF\">...</i></p>");
+			try {
+				RepresentationDb.addRepresentation(Integer.parseInt(numS), dateS + " " + heureS);
+				out.println("La représentation concernant le spectacle " + numS + " le " + dateS + " à " + heureS + " à bien été ajoutée.");
+			} catch (NumberFormatException e) {
+				out.println("Le formulaire contient des données invalides");
+				printForm(out);
+			} catch (RepresentationException e) {
+				out.println(e.getMessage());
+				printForm(out);
+			}
 		}
 
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/admin/admin.html\">Page d'administration</a></p>");
@@ -81,6 +77,25 @@ public class NouvelleRepresentationServlet extends HttpServlet {
 		out.println("</BODY>");
 		out.close();
 
+	}
+	
+	private void printForm (ServletOutputStream out) throws IOException {
+		out.println("<font color=\"#FFFFFF\">Veuillez saisir les informations relatives &agrave; la nouvelle repr&eacute;sentation :");
+		out.println("<P>");
+		out.print("<form action=\"");
+		out.print("NouvelleRepresentationServlet\" ");
+		out.println("method=POST>");
+		out.println("Num&eacute;ro de spectacle :");
+		out.println("<input type=text size=20 name=numS>");
+		out.println("<br>");
+		out.println("Date de la repr&eacute;sentation :");
+		out.println("<input type=text size=20 name=date>");
+		out.println("<br>");
+		out.println("Heure de d&eacute;but de la repr&eacute;sentation :");
+		out.println("<input type=text size=20 name=heure>");
+		out.println("<br>");
+		out.println("<input type=submit>");
+		out.println("</form>");
 	}
 
 	/**
@@ -111,7 +126,7 @@ public class NouvelleRepresentationServlet extends HttpServlet {
 	 */
 
 	public String getServletInfo() {
-		return "Ajoute une repr�sentation � une date donn�e pour un spectacle existant";
+		return "Ajoute une représentation à une date donnée pour un spectacle existant";
 	}
 
 }

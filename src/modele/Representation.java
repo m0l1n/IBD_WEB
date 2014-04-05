@@ -1,6 +1,7 @@
 package modele;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class Representation {
 	private Spectacle spect;
