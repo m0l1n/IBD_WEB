@@ -8,7 +8,7 @@ public class CategorieException extends SQLException {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CategorieException (String m) {
+	public CategorieException(String m) {
 		super(m);
 	}
 }
