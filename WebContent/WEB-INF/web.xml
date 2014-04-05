@@ -13,28 +13,38 @@
 --> 
 
 
- <servlet> 
-<servlet-name>ProgrammeServlet</servlet-name> 
-<servlet-class>ProgrammeServlet</servlet-class> 
-</servlet>
+	<servlet> 
+		<servlet-name>ProgrammeServlet</servlet-name> 
+		<servlet-class>ProgrammeServlet</servlet-class> 
+	</servlet>
 
- <servlet> 
-<servlet-name>NouvelleRepresentationServlet</servlet-name> 
-<servlet-class>NouvelleRepresentationServlet</servlet-class> 
-</servlet>
+	<servlet> 
+		<servlet-name>NouvelleRepresentationServlet</servlet-name> 
+		<servlet-class>NouvelleRepresentationServlet</servlet-class> 
+	</servlet>
+
+	<servlet> 
+		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
+		<servlet-class>RepresentationSpectacleServlet</servlet-class> 
+	</servlet>
 
 
 
 
-<servlet-mapping> 
-<servlet-name>ProgrammeServlet</servlet-name> 
-<url-pattern>/servlet/ProgrammeServlet</url-pattern> 
-</servlet-mapping>
+	<servlet-mapping> 
+		<servlet-name>ProgrammeServlet</servlet-name> 
+		<url-pattern>/servlet/ProgrammeServlet</url-pattern> 
+	</servlet-mapping>
 
- <servlet-mapping> 
-<servlet-name>NouvelleRepresentationServlet</servlet-name> 
-<url-pattern>/servlet/NouvelleRepresentationServlet</url-pattern> 
-</servlet-mapping>
+	<servlet-mapping> 
+		<servlet-name>NouvelleRepresentationServlet</servlet-name> 
+		<url-pattern>/servlet/NouvelleRepresentationServlet</url-pattern> 
+	</servlet-mapping>
+
+	<servlet-mapping> 
+		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
+		<url-pattern>/servlet/RepresentationSpectacleServlet</url-pattern> 
+	</servlet-mapping>
 
 
 </web-app>

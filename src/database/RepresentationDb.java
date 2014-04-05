@@ -37,11 +37,39 @@ public class RepresentationDb {
 				res.add(new Representation(new Spectacle(rs.getInt(1), rs.getString(3)), df.parse(rs.getString(2))));
 			}
 		} catch (ExceptionConnexion | SQLException | ParseException e) {
-			throw new RepresentationException("Un problème est survenue lors de l'interrogation des représenations");
+			throw new RepresentationException("Un problème est survenue lors de l'interrogation des représentations");
 		} finally {
 			BDConnexion.FermerTout(conn, stmt, rs);
 		}
 		
+		return res;
+	}
+	
+	public static List<Representation> getRepresentations(int numSpectacle)
+			throws RepresentationException {
+		ArrayList<Representation> res = new ArrayList<>();
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = BDConnexion.getConnexion();
+			stmt = conn
+					.prepareStatement("SELECT TO_CHAR(dateRep, 'dd/MM/YYYY HH24:MI') "
+							+ "FROM LesRepresentations " + "WHERE numS = ?");
+			stmt.setInt(1, numSpectacle);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				res.add(new Representation(null, df.parse(rs.getString(1))));
+			}
+		} catch (ExceptionConnexion | SQLException | ParseException e) {
+			throw new RepresentationException(
+					"Un problème est survenue lors de l'interrogation des représentations");
+		} finally {
+			BDConnexion.FermerTout(conn, stmt, rs);
+		}
+
 		return res;
 	}
 	
