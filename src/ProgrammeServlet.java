@@ -3,9 +3,18 @@
  * 
  * Copyright (c) 2007 Sara Bouchenak.
  */
-import javax.servlet.*;
-import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import modele.Representation;
+import database.RepresentationDb;
+import exceptions.RepresentationException;
 
 /**
  * Proramme Servlet.
@@ -17,6 +26,8 @@ import java.io.IOException;
  */
 
 public class ProgrammeServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * HTTP GET request entry point.
@@ -44,10 +55,18 @@ public class ProgrammeServlet extends HttpServlet {
 		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
 		out.println("<font color=\"#FFFFFF\"><h1> Programme de la saison </h1>");
 
-		// TO DO
-		// R�cup�ration de la liste de tous les spectacles de la saison.
-		// Puis construction dynamique d'une page web d�crivant ces spectacles.
-		out.println("<p><i><font color=\"#FFFFFF\">A compl&eacute;te</i></p>");
+		try {
+			List<Representation> representations = RepresentationDb.getRepresentations();
+			out.println("<p>");
+			for (Representation representation : representations) {
+				out.println(representation.getSpect().getNom() + ":" + representation.getDate().toString()+"<br />");
+			}
+			out.println("</p>");
+		} catch (RepresentationException e) {
+			out.println(e.getMessage());
+		}
+		
+		out.println("<p><i><font color=\"#FFFFFF\">A compl&eacute;ter</i></p>");
 		out.println("<p><i><font color=\"#FFFFFF\">...</i></p>");
 
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Accueil</a></p>");

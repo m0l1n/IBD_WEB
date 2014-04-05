@@ -1,4 +1,4 @@
-package accesBD;
+package database;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public final class BDConnexion {
 	 *             si la connexion a echoue
 	 */
 
-	public static Connection getConnexion(String login, String mdp)
+	public static Connection getConnexion()
 			throws ExceptionConnexion {
 		Connection conn = null;
 		try {
@@ -40,7 +40,9 @@ public final class BDConnexion {
 			p.load(is);
 			String url = p.getProperty("url");
 			String driver = p.getProperty("driver");
-
+			String login = p.getProperty("user");
+			String mdp = p.getProperty("mdp");
+			
 			Class.forName(driver);
 			// hopper@UFR, Oracle
 			conn = DriverManager.getConnection(url, login, mdp);

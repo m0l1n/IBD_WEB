@@ -18,6 +18,8 @@ import java.io.IOException;
 
 public class NouvelleRepresentationServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * HTTP GET request entry point.
 	 * 
@@ -41,7 +43,7 @@ public class NouvelleRepresentationServlet extends HttpServlet {
 
 		res.setContentType("text/html");
 
-		out.println("<HEAD><TITLE> Ajouter une nouvelle repr�sentation </TITLE></HEAD>");
+		out.println("<HEAD><TITLE> Ajouter une nouvelle représentation </TITLE></HEAD>");
 		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
 		out.println("<font color=\"#FFFFFF\"><h1> Ajouter une nouvelle repr&eacute;sentation </h1>");
 
