@@ -27,6 +27,11 @@
 		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
 		<servlet-class>RepresentationSpectacleServlet</servlet-class> 
 	</servlet>
+	
+	<servlet> 
+		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
+		<servlet-class>RepresentationPlaceAvailableServlet</servlet-class> 
+	</servlet>
 
 
 
@@ -44,6 +49,11 @@
 	<servlet-mapping> 
 		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
 		<url-pattern>/servlet/RepresentationSpectacleServlet</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
+		<url-pattern>/servlet/RepresentationPlaceAvailableServlet</url-pattern> 
 	</servlet-mapping>
 
 

@@ -1,6 +1,7 @@
 package exceptions;
 
 public class ExceptionConnexion extends ExceptionTheatre {
+	private static final long serialVersionUID = 1L;
 
 	public ExceptionConnexion() {
 		// TODO Auto-generated constructor stub

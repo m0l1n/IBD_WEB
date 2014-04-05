@@ -1,6 +1,6 @@
 package exceptions;
 
-public class RepresentationException extends Exception {
+public class RepresentationException extends ExceptionTheatre {
 	private static final long serialVersionUID = 1L;
 	
 	public RepresentationException() {
