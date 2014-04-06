@@ -7,12 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modele.Representation;
-import modele.Spectacle;
-import database.RepresentationDb;
-import database.SpectacleDb;
-import exceptions.RepresentationException;
-import exceptions.SpectacleException;
+import modele.Place;
+import database.PlaceDb;
+import exceptions.PlaceException;
 
 
 public class BookPlaceServlet extends HttpServlet {
@@ -52,26 +49,26 @@ public class BookPlaceServlet extends HttpServlet {
 			printForm(out);
 		} else {
 			try {
-				int idSpectacle = Integer.parseInt(numS);
-				Spectacle spectacle = SpectacleDb.getSpectacle(idSpectacle);
-				if (spectacle == null) {
-					out.println("Le spectacle demandée n'existe pas");
+				List<Place> places = PlaceDb.bookPlaces(Integer.valueOf(numZ), Integer.valueOf(numS), dateRep, 1);
+				if (places.size() == 0) {
+					out.println("Il n'y a plus de places disponibles pour cette représentation");
 					printForm(out);
 				} else {
-					out.println("Réprésentations du spectacle "+ spectacle.getNom());
-					List<Representation> representations = RepresentationDb.getRepresentations(idSpectacle);
-					for (Representation representation : representations) {
-						out.println(representation.getDate() + "<br />");
+					out.println("Places réservés");
+					for (Place p : places) {
+						float tarif = PlaceDb.getTarif(p.getRang(), p.getPlace());
+						out.println(p.getRang()+":"+p.getPlace()+":"+tarif+"&euro;");
 					}
 				}
 			} catch (NumberFormatException e) {
 				out.println("Le formulaire contient des données invalides");
 				printForm(out);
-			} catch (SpectacleException | RepresentationException e) {
+			} catch (PlaceException e) {
 				out.println(e.getMessage());
 				printForm(out);
 			}
 		}
+		
 
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/admin/admin.html\">Page d'administration</a></p>");
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Page d'accueil</a></p>");

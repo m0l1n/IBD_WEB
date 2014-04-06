@@ -18,7 +18,7 @@ import exceptions.ExceptionConnexion;
 import exceptions.RepresentationException;
 
 public class RepresentationDb {
-	private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
 	public static List<Representation> getRepresentations() throws RepresentationException {
 		ArrayList<Representation> res = new ArrayList<>();
@@ -93,7 +93,19 @@ public class RepresentationDb {
 			stmt.executeUpdate();
 			conn.commit();
 		} catch (ExceptionConnexion | SQLException e) {
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {}
+			}
 			throw new RepresentationException("Un problème est survenue lors de l'enregistrement de la représentation");
+		} finally {
+			try {
+				stmt.close();
+			} catch (Exception e) {}
+			try {
+				conn.close();
+			} catch (Exception e) {}
 		}
 	}
 }
