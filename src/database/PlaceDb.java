@@ -57,5 +57,22 @@ public class PlaceDb {
 		
 		return res;
 	}
+	
+	
+	public static boolean bookPlaces(int numZ, int numS, String dateRep, int quantity) throws PlaceException {
+		try {
+			return bookPlaces(numZ, numS, df.parse(dateRep), quantity);
+		} catch (ParseException e) {
+			throw new PlaceException("La date n'est pas dans le format attendu");
+		}
+	}
+	
+	public static boolean bookPlaces(int numZ, int numS, Date dateRep, int quantity) {
+		boolean res = false;
+		
+		
+		
+		return res;
+	}
 
 }

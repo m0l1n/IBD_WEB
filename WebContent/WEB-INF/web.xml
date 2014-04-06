@@ -32,6 +32,11 @@
 		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
 		<servlet-class>RepresentationPlaceAvailableServlet</servlet-class> 
 	</servlet>
+	
+	<servlet> 
+		<servlet-name>BookPlaceServlet</servlet-name> 
+		<servlet-class>BookPlaceServlet</servlet-class> 
+	</servlet>
 
 
 
@@ -54,6 +59,11 @@
 	<servlet-mapping> 
 		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
 		<url-pattern>/servlet/RepresentationPlaceAvailableServlet</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>BookPlaceServlet</servlet-name> 
+		<url-pattern>/servlet/BookPlaceServlet</url-pattern> 
 	</servlet-mapping>
 
 
