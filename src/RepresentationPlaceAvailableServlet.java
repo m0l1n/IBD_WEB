@@ -40,9 +40,9 @@ public class RepresentationPlaceAvailableServlet extends HttpServlet {
 
 		res.setContentType("text/html");
 
-		out.println("<HEAD><TITLE> Chercher les représentations d'un spectacle </TITLE></HEAD>");
+		out.println("<HEAD><TITLE> Chercher les places disponibles d'un spectacle </TITLE></HEAD>");
 		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
-		out.println("<font color=\"#FFFFFF\"><h1> Chercher les représentations d'un spectacle </h1>");
+		out.println("<font color=\"#FFFFFF\"><h1> Chercher les places disponibles d'un spectacle </h1>");
 
 		String numS = req.getParameter("numS");
 		String dateRep = req.getParameter("dateRep");

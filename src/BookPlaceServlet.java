@@ -45,11 +45,17 @@ public class BookPlaceServlet extends HttpServlet {
 		String numS = req.getParameter("numS");
 		String dateRep = req.getParameter("dateRep");
 		String numZ = req.getParameter("numZ");
-		if (numS == null || dateRep == null || numZ == null) {
+		if (numS == null || dateRep == null) {
 			printForm(out);
 		} else {
 			try {
-				List<Place> places = PlaceDb.bookPlaces(Integer.valueOf(numZ), Integer.valueOf(numS), dateRep, 1);
+				List<Place> places = null;
+				if (numZ == null) {
+					places = PlaceDb.bookPlaces(Integer.valueOf(numS), dateRep, 1);
+				} else {
+					places = PlaceDb.bookPlaces(Integer.valueOf(numZ), Integer.valueOf(numS), dateRep, 1);
+				}
+				
 				if (places.size() == 0) {
 					out.println("Il n'y a plus de places disponibles pour cette représentation");
 					printForm(out);

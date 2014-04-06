@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -56,10 +59,17 @@ public class RepresentationSpectacleServlet extends HttpServlet {
 					out.println("Le spectacle demandée n'existe pas");
 					printForm(out);
 				} else {
-					out.println("Réprésentations du spectacle "+ spectacle.getNom());
+					out.println("<h2>Représentations du spectacle "+ spectacle.getNom()+"</h2>");
 					List<Representation> representations = RepresentationDb.getRepresentations(idSpectacle);
+					DateFormat presentationDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 					for (Representation representation : representations) {
-						out.println(representation.getDate() + "<br />");
+						String reprDate = presentationDate.format(representation.getDate());
+						out.print("<a href=\"RepresentationPlaceAvailableServlet?numS="+idSpectacle+"&dateRep="+URLEncoder.encode(reprDate, "UTF-8")+"\">");
+						out.print(reprDate);
+						out.println("</a> ");
+						out.print("<a href=\"BookPlaceServlet?numS="+idSpectacle+"&dateRep="+URLEncoder.encode(reprDate, "UTF-8")+"\">");
+						out.print("Réserver une place");
+						out.println("</a><br />");
 					}
 				}
 			} catch (NumberFormatException e) {

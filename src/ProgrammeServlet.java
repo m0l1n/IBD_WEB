@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modele.Representation;
-import database.RepresentationDb;
-import exceptions.RepresentationException;
+import modele.Spectacle;
+import database.SpectacleDb;
+import exceptions.SpectacleException;
 
 /**
  * Proramme Servlet.
@@ -56,18 +56,17 @@ public class ProgrammeServlet extends HttpServlet {
 		out.println("<font color=\"#FFFFFF\"><h1> Programme de la saison </h1>");
 
 		try {
-			List<Representation> representations = RepresentationDb.getRepresentations();
+			List<Spectacle> spectacles = SpectacleDb.getSpectacles();
 			out.println("<p>");
-			for (Representation representation : representations) {
-				out.println(representation.getSpect().getNom() + ":" + representation.getDate().toString()+"<br />");
+			for (Spectacle spectacle : spectacles) {
+				out.print("<a href=\"RepresentationSpectacleServlet?numS="+ spectacle.getId() +"\">");
+				out.print(spectacle.getNom());
+				out.println("</a><br />");
 			}
 			out.println("</p>");
-		} catch (RepresentationException e) {
+		} catch (SpectacleException e) {
 			out.println(e.getMessage());
 		}
-		
-		out.println("<p><i><font color=\"#FFFFFF\">A compl&eacute;ter</i></p>");
-		out.println("<p><i><font color=\"#FFFFFF\">...</i></p>");
 
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Accueil</a></p>");
 		out.println("</BODY>");
