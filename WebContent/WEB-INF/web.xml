@@ -67,6 +67,10 @@
 	</servlet-mapping>
 
 	<!-- Identitification administration -->
+	<security-role>
+		<description>Admin</description>
+		<role-name>administrator</role-name>
+    </security-role>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Administration area</web-resource-name>

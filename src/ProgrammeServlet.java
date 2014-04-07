@@ -47,7 +47,8 @@ public class ProgrammeServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		ServletOutputStream out = res.getOutputStream();
+		getServletContext().getRequestDispatcher("/WEB-INF/show_program.jsp").forward(req, res);
+		/*ServletOutputStream out = res.getOutputStream();
 
 		res.setContentType("text/html");
 
@@ -70,7 +71,7 @@ public class ProgrammeServlet extends HttpServlet {
 
 		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Accueil</a></p>");
 		out.println("</BODY>");
-		out.close();
+		out.close();*/
 
 	}
 

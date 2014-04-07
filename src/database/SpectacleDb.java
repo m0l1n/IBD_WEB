@@ -30,7 +30,9 @@ public class SpectacleDb {
 		} catch (ExceptionConnexion | SQLException e) {
 			throw new SpectacleException(
 					"Un problème est survenue lors de l'interrogation des spectacles");
-		} finally {
+		}
+		
+		finally {
 			BDConnexion.FermerTout(conn, stmt, rs);
 		}
 		return res;
