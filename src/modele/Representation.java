@@ -1,5 +1,5 @@
 package modele;
-<<<<<<< HEAD
+
 import java.util.Calendar;
 import java.util.Date;
 import java.sql.Time;
