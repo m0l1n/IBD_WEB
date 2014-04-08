@@ -6,7 +6,6 @@
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,57 +44,22 @@ public class NouvelleRepresentationServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		String numS, dateS, heureS;
-		ServletOutputStream out = res.getOutputStream();
-
-		res.setContentType("text/html");
-
-		out.println("<HEAD><TITLE> Ajouter une nouvelle représentation </TITLE></HEAD>");
-		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
-		out.println("<font color=\"#FFFFFF\"><h1> Ajouter une nouvelle repr&eacute;sentation </h1>");
-
-		numS = req.getParameter("numS");
-		dateS = req.getParameter("date");
-		heureS = req.getParameter("heure");
-		if (numS == null || dateS == null || heureS == null) {
-			printForm(out);
-		} else {
+		String numS = req.getParameter("numS");
+		String date = req.getParameter("date");
+		String heure = req.getParameter("heure");
+		boolean isAdded = false;
+		if (!(numS == null || date == null || heure == null)) {
 			try {
-				RepresentationDb.addRepresentation(Integer.parseInt(numS), dateS + " " + heureS);
-				out.println("La représentation concernant le spectacle " + numS + " le " + dateS + " à " + heureS + " à bien été ajoutée.");
+				RepresentationDb.addRepresentation(Integer.parseInt(numS), date + " " + heure);
+				isAdded = true;
 			} catch (NumberFormatException e) {
-				out.println("Le formulaire contient des données invalides");
-				printForm(out);
+				req.setAttribute("erreurMessage", "Le formulaire contient des données invalides");
 			} catch (RepresentationException e) {
-				out.println(e.getMessage());
-				printForm(out);
+				req.setAttribute("erreurMessage", e.getMessage());
 			}
 		}
-
-		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/admin/admin.html\">Page d'administration</a></p>");
-		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Page d'accueil</a></p>");
-		out.println("</BODY>");
-		out.close();
-
-	}
-	
-	private void printForm (ServletOutputStream out) throws IOException {
-		out.println("<font color=\"#FFFFFF\">Veuillez saisir les informations relatives &agrave; la nouvelle repr&eacute;sentation :");
-		out.println("<P>");
-		out.print("<form action=\"");
-		out.print("NouvelleRepresentationServlet\" ");
-		out.println("method=POST>");
-		out.println("Num&eacute;ro de spectacle :");
-		out.println("<input type=text size=20 name=numS>");
-		out.println("<br>");
-		out.println("Date de la repr&eacute;sentation :");
-		out.println("<input type=text size=20 name=date>");
-		out.println("<br>");
-		out.println("Heure de d&eacute;but de la repr&eacute;sentation :");
-		out.println("<input type=text size=20 name=heure>");
-		out.println("<br>");
-		out.println("<input type=submit>");
-		out.println("</form>");
+		req.setAttribute("isAdded", isAdded);
+		getServletContext().getRequestDispatcher("/WEB-INF/add_representation.jsp").forward(req, res);
 	}
 
 	/**
