@@ -4,28 +4,40 @@ package modele;
 // mets en place les spectacle 
 public class Spectacle {
 
-    private String categorie;
-    private int prix;
 
-   
-    public Spectacle (String c, int p) {
-        this.categorie = c;
-        this.prix = p;
-    }
 
-    public String getNom () {
-        return this.categorie;
-    }
-       
-    public int getNum () {
+	private int id;
+	private String nom;
+	private int prix ;
+	
+	public Spectacle(int id, String n , int p) {
+		this.setId(id);
+		setNom(n);
+		this.prix = p;
+	}
+
+	  public int getNum () {
         return this.prix;
     }
-       
-    public void setNom (String c) {
-        this.categorie = c;
-    }
-       
+
     public void setNum (int p) {
         this.prix = p;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
 }

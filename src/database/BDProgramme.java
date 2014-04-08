@@ -1,4 +1,4 @@
-package accesBD;
+package database;
 
 public class BDProgramme {
 

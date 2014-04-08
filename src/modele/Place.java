@@ -5,7 +5,7 @@ public class Place {
 	private int noRang;
 	private int noPlace;
 	
-	public Place (int noRang,int noPlace){
+	public Place (int noPlace,int noRang){
 		this.noRang=noRang ;
 		this.noPlace=noPlace;
 	}
@@ -33,4 +33,5 @@ public class Place {
     }
 
 }
+
 

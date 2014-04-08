@@ -1,4 +1,5 @@
 package modele;
+<<<<<<< HEAD
 import java.util.Calendar;
 import java.util.Date;
 import java.sql.Time;
@@ -10,13 +11,20 @@ public class Representation {
     private Date date;
     private int num ;
     public Calendar calendar;
-    
+    private Spectacle spect;
+
     public Representation (int n, Date d) {
                 this.date = d;
                 calendar= Calendar.getInstance();
                 calendar.setTime(d);
                 num=n;
+		
     }
+	
+	public Representation(Spectacle s, Date d) {
+		spect = s;
+		date = d;
+	}
 
     public Representation (int n, Date d,Time t) {
                 this.date = d;
@@ -53,5 +61,14 @@ public class Representation {
         return rslt;
     }
    
-   
+	
+	public Spectacle getSpect() {
+		return spect;
+	}
+	
+	public void setSpect(Spectacle spect) {
+		this.spect = spect;
+	}
+	
+
 }

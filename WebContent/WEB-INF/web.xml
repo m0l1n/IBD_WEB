@@ -13,28 +13,76 @@
 --> 
 
 
- <servlet> 
-<servlet-name>ProgrammeServlet</servlet-name> 
-<servlet-class>ProgrammeServlet</servlet-class> 
-</servlet>
+	<servlet> 
+		<servlet-name>ProgrammeServlet</servlet-name> 
+		<servlet-class>ProgrammeServlet</servlet-class> 
+	</servlet>
 
- <servlet> 
-<servlet-name>NouvelleRepresentationServlet</servlet-name> 
-<servlet-class>NouvelleRepresentationServlet</servlet-class> 
-</servlet>
+	<servlet> 
+		<servlet-name>NouvelleRepresentationServlet</servlet-name> 
+		<servlet-class>NouvelleRepresentationServlet</servlet-class> 
+	</servlet>
+
+	<servlet> 
+		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
+		<servlet-class>RepresentationSpectacleServlet</servlet-class> 
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
+		<servlet-class>RepresentationPlaceAvailableServlet</servlet-class> 
+	</servlet>
+	
+	<servlet> 
+		<servlet-name>BookPlaceServlet</servlet-name> 
+		<servlet-class>BookPlaceServlet</servlet-class> 
+	</servlet>
 
 
 
 
-<servlet-mapping> 
-<servlet-name>ProgrammeServlet</servlet-name> 
-<url-pattern>/servlet/ProgrammeServlet</url-pattern> 
-</servlet-mapping>
+	<servlet-mapping> 
+		<servlet-name>ProgrammeServlet</servlet-name> 
+		<url-pattern>/servlet/ProgrammeServlet</url-pattern> 
+	</servlet-mapping>
 
- <servlet-mapping> 
-<servlet-name>NouvelleRepresentationServlet</servlet-name> 
-<url-pattern>/servlet/NouvelleRepresentationServlet</url-pattern> 
-</servlet-mapping>
+	<servlet-mapping> 
+		<servlet-name>NouvelleRepresentationServlet</servlet-name> 
+		<url-pattern>/admin/servlet/NouvelleRepresentationServlet</url-pattern> 
+	</servlet-mapping>
 
+	<servlet-mapping> 
+		<servlet-name>RepresentationSpectacleServlet</servlet-name> 
+		<url-pattern>/servlet/RepresentationSpectacleServlet</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
+		<url-pattern>/servlet/RepresentationPlaceAvailableServlet</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>BookPlaceServlet</servlet-name> 
+		<url-pattern>/servlet/BookPlaceServlet</url-pattern> 
+	</servlet-mapping>
+
+	<!-- Identitification administration -->
+	<security-role>
+		<description>Admin</description>
+		<role-name>administrator</role-name>
+    </security-role>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Administration area</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>Administration</realm-name>
+	</login-config>
 
 </web-app>
