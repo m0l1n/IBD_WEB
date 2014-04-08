@@ -15,19 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class Panier extends HttpServlet {
-	/**
-	 * Permet de repondre a une requete web affiche le contenu du panier ansi
-	 * que les differentes Places disponible pour la Representation passee via
-	 * la methode POST HTML Creation du panier , des différent Item mis dedans
-	 * et le rajoute dans les cookie Du client si necessaire.
-	 * 
-	 * @param HttpServletRequest
-	 *            request requete
-	 * @param HttpServletResponse
-	 *            response réponse
-	 * @throw IOException, ServletException
-	 * @return void
-	 */
+	/*
+	 * Afficahge du contenu du panier
+	*/
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
