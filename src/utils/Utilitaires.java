@@ -2,6 +2,9 @@ package utils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import database.BDCategories;
+
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -9,22 +12,21 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.Vector;
 import java.util.Date;
+
 import modele.*;
+
 import java.awt.Frame;
 
-
-import accesBD.BDCategories;
-import accesBD.BDProgramme;
-import accesBD.BDConnexion;
-
+import database.BDProgramme;
+import database.BDConnexion;
 import modele.Utilisateur;
 import modele.Categorie;
 import modele.Spectacle;
 import modele.Place;
-
 import exceptions.ExceptionUtilisateur;
 import exceptions.ExceptionConnexion;
 import exceptions.CategorieException;
+
 import java.io.File;
 
 public class Utilitaires {
@@ -250,7 +252,7 @@ public class Utilitaires {
         login = p.getProperty("user");
         passwd = p.getProperty("mdp");
         /* test de la connexion */
-        Connection conn = BDConnexion.getConnexion(login, passwd);
+        Connection conn = BDConnexion.getConnexion();
         if (conn != null) {
             BDConnexion.FermerTout(conn, null, null);
             user = new Utilisateur(login, passwd);
