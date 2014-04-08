@@ -59,7 +59,7 @@
 					<div class="alert alert-warning">
                 	<h4>Une erreur a été rencontrée</h4>
                 	<p>
-                		<% excep.getMessage(); %><br />
+                		<% out.print(excep.getMessage()); %><br />
                 		<a href="">Veuillez essayer de recharger la page</a>
                 	</p>
                		</div>
