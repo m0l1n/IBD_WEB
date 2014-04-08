@@ -13,6 +13,12 @@ import exceptions.SpectacleException;
 
 public class SpectacleDb {
 	
+	/**
+	 * Récupére la liste des spectacles
+	 * 
+	 * @return Liste des spectacles
+	 * @throws SpectacleException Si la liste des spectacles n'a pas pu êre obtenu
+	 */
 	public static List<Spectacle> getSpectacles() throws SpectacleException {
 		List<Spectacle> res = new ArrayList<>();
 		
@@ -38,6 +44,13 @@ public class SpectacleDb {
 		return res;
 	}
 	
+	/**
+	 * Récupère les informations d'un spectacle
+	 * 
+	 * @param id Numéro du spectacle
+	 * @return Le spectacle associé au numéro, null si le spectacle n'existe pas
+	 * @throws SpectacleException Si le spectacle n'a pas pu être récupéré
+	 */
 	public static Spectacle getSpectacle(int id) throws SpectacleException {
 		Spectacle res = null;
 		

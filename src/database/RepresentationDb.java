@@ -20,6 +20,12 @@ import exceptions.RepresentationException;
 public class RepresentationDb {
 	private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
+	/**
+	 * Récupère la liste des représentations
+	 * 
+	 * @return Liste des représentations
+	 * @throws RepresentationException Si les représentations n'ont pas être récupérées
+	 */
 	public static List<Representation> getRepresentations() throws RepresentationException {
 		ArrayList<Representation> res = new ArrayList<>();
 		
@@ -45,6 +51,13 @@ public class RepresentationDb {
 		return res;
 	}
 	
+	/**
+	 * Récupère les représentations d'un spectacle
+	 * 
+	 * @param numSpectacle Numéro du spectacle
+	 * @return Liste des représentations d'un spectacle
+	 * @throws RepresentationException Si les représentations n'ont pas être récupérées
+	 */
 	public static List<Representation> getRepresentations(int numSpectacle)
 			throws RepresentationException {
 		ArrayList<Representation> res = new ArrayList<>();
@@ -73,6 +86,13 @@ public class RepresentationDb {
 		return res;
 	}
 	
+	/**
+	 * Ajoute une représentation
+	 * 
+	 * @param numS Numéro du spectacle de la représentation
+	 * @param date Date/heure de la représentation
+	 * @throws RepresentationException Si la représentation n'a pas pu être ajoutée
+	 */
 	public static void addRepresentation(int numS, String date) throws RepresentationException {
 		try {
 			addRepresentation(numS, df.parse(date));
@@ -81,6 +101,14 @@ public class RepresentationDb {
 		}
 	}
 	
+	/**
+	 * Ajoute une représentation
+	 * 
+	 * @param numS Numéro du spectacle de la représentation
+	 * @param date Date/heure de la représentation
+	 * @throws RepresentationException Si la représentation n'a pas pu être ajoutée
+	 * @see addRepresentation(int, Date)
+	 */
 	public static void addRepresentation(int numS, Date date) throws RepresentationException {
 		Connection conn = null;
 		PreparedStatement stmt = null;

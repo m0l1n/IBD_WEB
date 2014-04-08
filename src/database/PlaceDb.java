@@ -22,6 +22,15 @@ import exceptions.PlaceException;
 public class PlaceDb {
 	private static final DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
+	/**
+	 * Récupère la liste des places disponible pour une représentation
+	 * 
+	 * @param numS Numéro du spectacle
+	 * @param dateRep Date de la représentation
+	 * @return Liste des places disponibles
+	 * @throws PlaceException Si la récupération des places échoue
+	 * @see getPlaces(int, Date)
+	 */
 	public static List<Place> getPlaces(int numS, String dateRep) throws PlaceException {
 		try {
 			return getPlaces(numS, df.parse(dateRep));
@@ -30,6 +39,15 @@ public class PlaceDb {
 		}
 	}
 	
+	/**
+	 * Récupère la liste des places disponible pour une représentation
+	 * 
+	 * @param numS Numéro du spectacle
+	 * @param dateRep Date de la représentation
+	 * @return Liste des places disponibles
+	 * @throws PlaceException Si la récupération des places échoue
+	 * @see getPlaces(int, Date)
+	 */
 	public static List<Place> getPlaces(int numS, Date dateRep) throws PlaceException {
 		List<Place> res = new ArrayList<>();
 		
@@ -62,7 +80,15 @@ public class PlaceDb {
 		return res;
 	}
 	
-	
+	/**
+	 * Réserve des places
+	 * 
+	 * @param numS Numéro du spectacle
+	 * @param dateRep Date de la représentation
+	 * @param quantity Quantité de place à réserver
+	 * @return Liste des places réservées
+	 * @throws PlaceException Si la réservation n'a pas pu être réalisée
+	 */
 	public static List<Place> bookPlaces(int numS, String dateRep, int quantity) throws PlaceException {
 		Date dRep = null;
 		try {
@@ -105,6 +131,17 @@ public class PlaceDb {
 		}
 	}
 	
+	/**
+	 * Réserve des places
+	 * 
+	 * @param numZ Numéro de la zone voulu
+	 * @param numS Numéro du spectacle
+	 * @param dateRep Date de la représentation
+	 * @param quantity Quantité de place à réserver
+	 * @return Liste des places réservées
+	 * @throws PlaceException Si la réservation n'a pas pu être réalisée
+	 * @see bookPlaces(int, String, int)
+	 */
 	public static List<Place> bookPlaces(int numZ, int numS, String dateRep, int quantity) throws PlaceException {
 		try {
 			return bookPlaces(numZ, numS, df.parse(dateRep), quantity);
@@ -113,6 +150,17 @@ public class PlaceDb {
 		}
 	}
 	
+	/**
+	 * Réserve des places
+	 * 
+	 * @param numZ Numéro de la zone voulu
+	 * @param numS Numéro du spectacle
+	 * @param dateRep Date de la représentation
+	 * @param quantity Quantité de place à réserver
+	 * @return Liste des places réservées
+	 * @throws PlaceException Si la réservation n'a pas pu être réalisée
+	 * @see bookPlaces(int, int, String, int)
+	 */
 	public static List<Place> bookPlaces(int numZ, int numS, Date dateRep, int quantity) throws PlaceException {
 		List<Place> res = new ArrayList<>();
 		
@@ -151,6 +199,14 @@ public class PlaceDb {
 		return res;
 	}
 	
+	/**
+	 * Récupère le tarif d'une place
+	 * 
+	 * @param rang Rang de la place
+	 * @param place Numéro de la place
+	 * @return Tarif de la place, 0 si la place n'existe pas
+	 * @throws PlaceException Si le tarif n'a pas pu être obtenu
+	 */
 	public static float getTarif(int rang, int place) throws PlaceException {
 		float res = 0;
 		
