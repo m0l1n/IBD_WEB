@@ -4,10 +4,12 @@ package modele;
 public class Place {
 	private int noRang;
 	private int noPlace;
+	private float tarif;
 	
 	public Place (int noPlace,int noRang){
 		this.noRang=noRang ;
 		this.noPlace=noPlace;
+		setTarif(0);
 	}
 	
 	public int getNoRang(){
@@ -31,6 +33,14 @@ public class Place {
         rslt="rang: "+ this.noRang+"  place: "+this.noPlace;
         return rslt;
     }
+
+	public float getTarif() {
+		return tarif;
+	}
+
+	public void setTarif(float tarif) {
+		this.tarif = tarif;
+	}
 
 }
 

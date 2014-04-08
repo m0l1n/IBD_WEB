@@ -37,7 +37,6 @@ public class RepresentationPlaceAvailableServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String numS = req.getParameter("numS");
 		String dateRep = req.getParameter("dateRep");
-		System.out.println(numS+":"+dateRep);
 		if (numS == null || dateRep == null || dateRep.equals("")) {
 			getServletContext().getRequestDispatcher("/WEB-INF/search_place.jsp").forward(req, res);
 		} else {
