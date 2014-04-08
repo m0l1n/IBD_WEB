@@ -38,8 +38,15 @@
 		<servlet-class>BookPlaceServlet</servlet-class> 
 	</servlet>
 
+	<servlet> 
+		<servlet-name>Panier</servlet-name> 
+		<servlet-class>Panier</servlet-class> 
+	</servlet>
 
-
+	<servlet> 
+		<servlet-name>EditPanier</servlet-name> 
+		<servlet-class>EditPanier</servlet-class> 
+	</servlet>
 
 	<servlet-mapping> 
 		<servlet-name>ProgrammeServlet</servlet-name> 
@@ -59,6 +66,16 @@
 	<servlet-mapping> 
 		<servlet-name>RepresentationPlaceAvailableServlet</servlet-name> 
 		<url-pattern>/servlet/RepresentationPlaceAvailableServlet</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>Panier</servlet-name> 
+		<url-pattern>/servlet/Panier</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet-mapping> 
+		<servlet-name>EditPanier</servlet-name> 
+		<url-pattern>/servlet/EditPanier</url-pattern> 
 	</servlet-mapping>
 	
 	<servlet-mapping> 
