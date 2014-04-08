@@ -62,8 +62,8 @@ public class BookPlaceServlet extends HttpServlet {
 				} else {
 					out.println("Places réservés");
 					for (Place p : places) {
-						float tarif = PlaceDb.getTarif(p.getRang(), p.getPlace());
-						out.println(p.getRang()+":"+p.getPlace()+":"+tarif+"&euro;");
+						float tarif = PlaceDb.getTarif(p.getNoRang(), p.getNoPlace());
+						out.println(p.getNoRang()+":"+p.getNoPlace()+":"+tarif+"&euro;");
 					}
 				}
 			} catch (NumberFormatException e) {

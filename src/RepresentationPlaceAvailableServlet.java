@@ -63,7 +63,7 @@ public class RepresentationPlaceAvailableServlet extends HttpServlet {
 						out.println("Il n'y a plus de place disponible pour cette représentation");
 					} else {
 						for (Place place : places) {
-							out.println(place.getRang() + ":" + place.getPlace());
+							out.println(place.getNoRang() + ":" + place.getNoPlace());
 							out.println("<br />");
 						}
 					}
