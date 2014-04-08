@@ -1,11 +1,7 @@
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,65 +36,30 @@ public class RepresentationSpectacleServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		ServletOutputStream out = res.getOutputStream();
-
-		res.setContentType("text/html");
-
-		out.println("<HEAD><TITLE> Chercher les représentations d'un spectacle </TITLE></HEAD>");
-		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
-		out.println("<font color=\"#FFFFFF\"><h1> Chercher les représentations d'un spectacle </h1>");
-
 		String numS = req.getParameter("numS");
 		if (numS == null) {
-			printForm(out);
+			getServletContext().getRequestDispatcher("/WEB-INF/search_representation.jsp").forward(req, res);
 		} else {
 			try {
 				int idSpectacle = Integer.parseInt(numS);
 				Spectacle spectacle = SpectacleDb.getSpectacle(idSpectacle);
 				if (spectacle == null) {
-					out.println("Le spectacle demandée n'existe pas");
-					printForm(out);
+					req.setAttribute("erreurMessage", "Le spectacle num "+idSpectacle+" n'existe pas");
+					getServletContext().getRequestDispatcher("/WEB-INF/search_representation.jsp").forward(req, res);
 				} else {
-					out.println("<h2>Représentations du spectacle "+ spectacle.getNom()+"</h2>");
 					List<Representation> representations = RepresentationDb.getRepresentations(idSpectacle);
-					DateFormat presentationDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-					for (Representation representation : representations) {
-						String reprDate = presentationDate.format(representation.getDate());
-						out.print("<a href=\"RepresentationPlaceAvailableServlet?numS="+idSpectacle+"&dateRep="+URLEncoder.encode(reprDate, "UTF-8")+"\">");
-						out.print(reprDate);
-						out.println("</a> ");
-						out.print("<a href=\"BookPlaceServlet?numS="+idSpectacle+"&dateRep="+URLEncoder.encode(reprDate, "UTF-8")+"\">");
-						out.print("Réserver une place");
-						out.println("</a><br />");
-					}
+					req.setAttribute("spectacle", spectacle);
+					req.setAttribute("representations", representations);
+					getServletContext().getRequestDispatcher("/WEB-INF/show_representation.jsp").forward(req, res);
 				}
 			} catch (NumberFormatException e) {
-				out.println("Le formulaire contient des données invalides");
-				printForm(out);
+				req.setAttribute("erreurMessage", "Le formulaire contient des données invalides");
+				getServletContext().getRequestDispatcher("/WEB-INF/search_representation.jsp").forward(req, res);
 			} catch (SpectacleException | RepresentationException e) {
-				out.println(e.getMessage());
-				printForm(out);
+				req.setAttribute("erreurMessage", e.getMessage());
+				getServletContext().getRequestDispatcher("/WEB-INF/search_representation.jsp").forward(req, res);
 			}
 		}
-
-		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/admin/admin.html\">Page d'administration</a></p>");
-		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Page d'accueil</a></p>");
-		out.println("</BODY>");
-		out.close();
-
-	}
-	
-	private void printForm (ServletOutputStream out) throws IOException {
-		out.println("<font color=\"#FFFFFF\">Veuillez saisir les informations relatives &agrave; votre recherche :");
-		out.println("<P>");
-		out.print("<form action=\"");
-		out.print("RepresentationSpectacleServlet\" ");
-		out.println("method=POST>");
-		out.println("Num&eacute;ro de spectacle :");
-		out.println("<input type=text size=20 name=numS>");
-		out.println("<br>");
-		out.println("<input type=submit>");
-		out.println("</form>");
 	}
 
 	/**

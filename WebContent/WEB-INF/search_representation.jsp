@@ -1,7 +1,4 @@
 <%@ page pageEncoding="UTF-8" %>
-<%@ page import ="java.util.List" %>
-<%@ page import ="modele.Spectacle" %>
-<%@ page import ="exceptions.SpectacleException" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,51 +45,28 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header">
-					<h1>Liste des programmes</h1>
+					<h1>Chercher une représentation</h1>
 				</div>
-				
 				<%
-				SpectacleException excep = (SpectacleException) request.getAttribute("erreur");
-				List<Spectacle> spectacles = (List<Spectacle>) request.getAttribute("spectacles");
-				if (excep != null) {
+				String erreurMessage = (String) request.getAttribute("erreurMessage");
+				if (erreurMessage != null) {
 				%>
 					<div class="alert alert-warning">
                 	<h4>Une erreur a été rencontrée</h4>
                 	<p>
-                		<% excep.getMessage(); %><br />
-                		<a href="">Veuillez essayer de recharger la page</a>
+                		<% out.print(erreurMessage); %><br />
                 	</p>
                		</div>
 				<%
-				} else {
-					if(spectacles == null || spectacles.size() == 0) {
-					%>
-					<p>Il n'y a pas de spectacle actuellement</p>
-					<%
-					} else {
-						%>
-						<table class="table table-striped table-hover">
-							<thead>
-								<th>Nom du spectacle</th>
-								<th>Représentation</th>
-							</thead>
-							<tbody>
-								<%
-								for(Spectacle spect : spectacles) {
-									%>
-									<tr>
-										<td><% out.print(spect.getNom()); %></td>
-										<td><a href="RepresentationSpectacleServlet?numS=<% out.print(spect.getId()); %>">Voir les représentations</a></td>
-									</tr>
-									<%
-								}
-								%>
-							</tbody>
-						</table>
-						<%
-					}
 				}
 				%>
+				<form role="form" action="" method="post">
+					<div class="form-group">
+						<label for="numS">Numéro du spectacle : </label>
+						<input type="number" class="form-control" name="numS" id="numS" placeholder="Renseignez le numéro du spectacle">
+					</div>
+					<button type="submit" class="btn btn-default">Envoyer</button>
+				</form>
 			</div>
 		</div>
 	</div>

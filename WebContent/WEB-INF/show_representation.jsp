@@ -1,7 +1,10 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import ="java.util.List" %>
 <%@ page import ="modele.Spectacle" %>
-<%@ page import ="exceptions.SpectacleException" %>
+<%@ page import ="modele.Representation" %>
+<%@ page import ="java.text.SimpleDateFormat" %>
+<%@ page import ="java.text.DateFormat" %>
+<%@ page import ="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -44,53 +47,46 @@
 		</div>
 	</nav>
 	
+	<%
+	Spectacle spectacle = (Spectacle) request.getAttribute("spectacle");
+	List<Representation> representations = (List<Representation>) request.getAttribute("representations");
+	DateFormat presentationDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	%>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header">
-					<h1>Liste des programmes</h1>
+					<h1>Liste des représentations pour le spectacle <% out.print(spectacle.getNom()); %></h1>
 				</div>
-				
 				<%
-				SpectacleException excep = (SpectacleException) request.getAttribute("erreur");
-				List<Spectacle> spectacles = (List<Spectacle>) request.getAttribute("spectacles");
-				if (excep != null) {
-				%>
-					<div class="alert alert-warning">
-                	<h4>Une erreur a été rencontrée</h4>
-                	<p>
-                		<% excep.getMessage(); %><br />
-                		<a href="">Veuillez essayer de recharger la page</a>
-                	</p>
-               		</div>
-				<%
-				} else {
-					if(spectacles == null || spectacles.size() == 0) {
+				if (representations == null || representations.size() == 0) {
 					%>
-					<p>Il n'y a pas de spectacle actuellement</p>
+					<p>il n'y a pas de représentation pour le spectacle</p>
 					<%
-					} else {
-						%>
-						<table class="table table-striped table-hover">
-							<thead>
-								<th>Nom du spectacle</th>
-								<th>Représentation</th>
-							</thead>
-							<tbody>
-								<%
-								for(Spectacle spect : spectacles) {
+				} else {
+					%>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Date de la représentation</th>
+								<th>Réserver une place</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for(Representation representation : representations) {
+									String reprDate = presentationDate.format(representation.getDate());
 									%>
-									<tr>
-										<td><% out.print(spect.getNom()); %></td>
-										<td><a href="RepresentationSpectacleServlet?numS=<% out.print(spect.getId()); %>">Voir les représentations</a></td>
-									</tr>
+										<tr>
+											<td><% out.print(reprDate); %></td>
+											<td><a href="BookPlaceServlet?numS=<% out.print(spectacle.getId()); %>&dateRep=<% out.print(URLEncoder.encode(reprDate, "UTF-8")); %>">Réserver une place</a></td>
+										</tr>
 									<%
 								}
-								%>
-							</tbody>
-						</table>
-						<%
-					}
+							%>
+						</tbody>
+					</table>
+					<%
 				}
 				%>
 			</div>

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,32 +46,16 @@ public class ProgrammeServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/WEB-INF/show_program.jsp").forward(req, res);
-		/*ServletOutputStream out = res.getOutputStream();
-
-		res.setContentType("text/html");
-
-		out.println("<HEAD><TITLE> Programme de la saison </TITLE></HEAD>");
-		out.println("<BODY bgproperties=\"fixed\" background=\"/images/rideau.JPG\">");
-		out.println("<font color=\"#FFFFFF\"><h1> Programme de la saison </h1>");
-
+		List<Spectacle> spectacles = null;
+		SpectacleException exception = null;
 		try {
-			List<Spectacle> spectacles = SpectacleDb.getSpectacles();
-			out.println("<p>");
-			for (Spectacle spectacle : spectacles) {
-				out.print("<a href=\"RepresentationSpectacleServlet?numS="+ spectacle.getId() +"\">");
-				out.print(spectacle.getNom());
-				out.println("</a><br />");
-			}
-			out.println("</p>");
+			spectacles = SpectacleDb.getSpectacles();
 		} catch (SpectacleException e) {
-			out.println(e.getMessage());
+			exception = e;
 		}
-
-		out.println("<hr><p><font color=\"#FFFFFF\"><a href=\"/index.html\">Accueil</a></p>");
-		out.println("</BODY>");
-		out.close();*/
-
+		req.setAttribute("spectacles", spectacles);
+		req.setAttribute("erreur", exception);
+		getServletContext().getRequestDispatcher("/WEB-INF/show_program.jsp").forward(req, res);
 	}
 
 	/**
