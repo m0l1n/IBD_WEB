@@ -3,7 +3,6 @@ package utils;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import database.BDCategories;
 
 import java.util.Properties;
 import java.io.FileInputStream;
