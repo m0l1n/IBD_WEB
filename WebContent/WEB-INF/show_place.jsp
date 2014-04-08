@@ -1,10 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import ="java.util.List" %>
 <%@ page import ="modele.Spectacle" %>
-<%@ page import ="modele.Representation" %>
-<%@ page import ="java.text.SimpleDateFormat" %>
-<%@ page import ="java.text.DateFormat" %>
-<%@ page import ="java.net.URLEncoder" %>
+<%@ page import ="modele.Place" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -49,40 +46,36 @@
 	
 	<%
 	Spectacle spectacle = (Spectacle) request.getAttribute("spectacle");
-	List<Representation> representations = (List<Representation>) request.getAttribute("representations");
-	DateFormat presentationDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	String dateRep = (String) request.getAttribute("dateRep");
+	List<Place> places = (List<Place>) request.getAttribute("places");
 	%>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header">
-					<h1>Liste des représentations pour le spectacle <% out.print(spectacle.getNom()); %></h1>
+					<h1>Places disponibles pour la représentation du  <% out.print(dateRep); %> du spectacle <% out.print(spectacle.getNom()); %></h1>
 				</div>
 				<%
-				if (representations == null || representations.size() == 0) {
+				if (places == null || places.size() == 0) {
 					%>
-					<p>il n'y a pas de représentation pour le spectacle</p>
+					<p>Il n'y pas de place disponible pour la représentation de ce spectacle</p>
 					<%
 				} else {
 					%>
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Date de la représentation</th>
-								<th>Place</th>
+								<th>Rang</th>
+								<th>Numéro de place</th>
 							</tr>
 						</thead>
 						<tbody>
 							<%
-								for(Representation representation : representations) {
-									String reprDate = presentationDate.format(representation.getDate());
+								for(Place place : places) {
 									%>
 										<tr>
-											<td><% out.print(reprDate); %></td>
-											<td>
-												<a href="RepresentationPlaceAvailableServlet?numS=<% out.print(spectacle.getId()); %>&dateRep=<% out.print(URLEncoder.encode(reprDate, "UTF-8")); %>">Voir les places disponibles</a> 
-												<a href="BookPlaceServlet?numS=<% out.print(spectacle.getId()); %>&dateRep=<% out.print(URLEncoder.encode(reprDate, "UTF-8")); %>">Réserver une place</a>
-											</td>
+											<td><% out.print(place.getNoRang()); %></td>
+											<td><% out.print(place.getNoPlace()); %></td>
 										</tr>
 									<%
 								}
